@@ -1,4 +1,5 @@
 import sys
+import string
 
 def writefasta(sequence, name, filename):
 	fh=open(filename, 'w')
@@ -11,3 +12,18 @@ def writefasta(sequence, name, filename):
             c = b
 def order(j,k): 
 	return (k * (k + 1) / 2) + j
+
+
+""" for reverse complementing a sequence """
+def complement(s):
+     """Return the complementary sequence string."""
+     basecomplement = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A'}
+     letters = list(s)
+     letters = [basecomplement[base] for base in letters]
+     return ''.join(letters)
+
+def reversecomplement(s):
+     """Return the reverse complement of the dna string."""
+     s = s[::-1]
+     s = complement(s)
+     return s
