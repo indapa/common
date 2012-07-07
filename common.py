@@ -65,4 +65,5 @@ def isTransition(allele1, allele2):
             return True
     else:
         sys.stderr.write("indel?\n")
+        print allele1, allele2
     return False
