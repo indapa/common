@@ -64,6 +64,6 @@ def isTransition(allele1, allele2):
         if allele2 == 'C':
             return True
     else:
-        sys.stderr.write("indel?\n")
-        print allele1, allele2
+        sys.stderr.write("skipping indel for transition/transversion classification\n")
+        
     return False
