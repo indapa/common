@@ -1,5 +1,6 @@
 import sys
 import string
+from itertools import *
 
 def writefasta(sequence, name, filename):
 	fh=open(filename, 'w')
@@ -13,6 +14,13 @@ def writefasta(sequence, name, filename):
 def order(j,k): 
 	return (k * (k + 1) / 2) + j
 
+
+""" iterate through an utterable n values at a time
+     http://stackoverflow.com/a/2990151         """
+def grouper(n, iterable, fillvalue='x'):
+    "grouper(3, 'ABCDEFG', 'x') --> ABC DEF Gxx"
+    args = [iter(iterable)] * n
+    return izip_longest(fillvalue=fillvalue, *args)
 
 """ for reverse complementing a sequence """
 def complement(s):
