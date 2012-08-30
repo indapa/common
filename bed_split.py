@@ -15,7 +15,7 @@ def returnIntervals(bedfh,size):
         chrom_name = fields[0]
         
         chrom_length = int(fields[2])
-        region_start = 1
+        region_start = 0
         
         while region_start < chrom_length:
             start = region_start
