@@ -49,7 +49,7 @@ def main():
         print len(sequence)
     print len(targetsequence)
 
-    writefasta(targetsequence, option.faheader, faout)
+    writefasta(targetsequence, options.faheader, faout)
 
 if __name__ == "__main__":
     main()
