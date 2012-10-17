@@ -1,5 +1,6 @@
 import sys
 import string
+import math
 from itertools import *
 
 def writefasta(sequence, name, filename):
@@ -75,3 +76,23 @@ def isTransition(allele1, allele2):
         sys.stderr.write("skipping indel for transition/transversion classification\n")
         
     return False
+
+
+def yield_bedcoordinate(fh):
+    """ yield a tuple of (chr, start,end) from bed file """
+    for line  in fh:
+        if '@' in line: continue
+        fields=line.strip().split("\t")
+        (chr, start, end) = fields[0:3]
+        yield(chr, int(start), int(end) )
+
+def PhredScore(errorprob):
+    """ given an error probbability, return the phred-scaled value: -10 * log_10(error) """
+    return   -10 * math.log10(errorprob)
+
+
+def ErrorProb(phredScore):
+    """ given a phred-scaled score, return the error prob: 10^(-Q/10) """
+    return pow(10,(-phredscore/10))
+
+	
