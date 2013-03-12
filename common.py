@@ -3,6 +3,58 @@ import string
 import math
 from itertools import *
 
+
+def numericalGenotypes( refbase,altstring, genostr):
+    """ given refbase and comma-delimited string of alternate bases and n-character genotype string,
+    return the numerical genotype where 1 is the reference and 2 and above be alternate.
+    if the reference was G and alternate was C, GC genotype would be 1/2"""
+
+
+    altbases=altstring.split(',')
+    altbases.sort()
+
+    segregating_alleles=[refbase] + altbases
+    numerical_alleles=map(lambda x:x+1, range(len(segregating_alleles)))
+
+    genotype_map=dict(zip(segregating_alleles, numerical_alleles))
+    genotyped_alleles=tuple(genostr)
+    try:
+        nmapped=[ str(genotype_map[x]) for x in genotyped_alleles ]
+    except KeyError:
+        print 'allele in genotype not in list of ref or alt alleles!'
+        return '-1/-1'
+
+    return "/".join(nmapped)
+
+
+def indexToGenotype( index,alleles='ACGT',ploidy=2 ):
+    """ return genotype at a given index position after
+    enumerating all possible genotypes given string of alleles and
+    assigning to a list. By default the list contains all possible 10 genotypes"""
+
+
+    genotypes= [ "".join(list(genotype))  for genotype in combinations_with_replacement(alleles, ploidy) ]
+
+    try:
+       return genotypes[index]
+    except IndexError:
+        print "Index out of bounds, not a valid index for list of genotypes"
+
+
+def genotypeToIndex( geno, ploidy=2,alleles='ACGT'):
+    """ given a genotype return its index in the enumerated list of possible genotypes
+    given ploidy and alleles """
+
+
+    genotypes= [ "".join(list(genotype))  for genotype in combinations_with_replacement(alleles, ploidy) ]
+    
+
+    try:
+        return  genotypes.index(geno)
+    except ValueError:
+        print "genotype not in list of genotypes."
+
+
 def writefasta(sequence, name, filename):
 	fh=open(filename, 'w')
         l = len( sequence )
@@ -91,7 +143,7 @@ def PhredScore(errorprob):
     return   -10 * math.log10(errorprob)
 
 
-def ErrorProb(phredScore):
+def ErrorProb(phredscore):
     """ given a phred-scaled score, return the error prob: 10^(-Q/10) """
     return pow(10,(-phredscore/10))
 
