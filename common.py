@@ -93,7 +93,7 @@ def order(j,k):
 def grouper(n, iterable, fillvalue='x'):
     "grouper(3, 'ABCDEFG', 'x') --> ABC DEF Gxx"
     args = [iter(iterable)] * n
-    return izip_longest(fillvalue=fillvalue, *args)
+    return itertools.izip_longest(fillvalue=fillvalue, *args)
 
 """ for reverse complementing a sequence """
 def complement(s):
