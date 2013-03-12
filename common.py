@@ -4,6 +4,26 @@ import math
 from itertools import *
 
 
+def determineAltBases( genotypes, refbase):
+    """ given a list of  genotypes and the ref base, determing the segregating alt base """
+
+    alleles= [ list(tuple(g)) for g in genotypes ]
+    observed_alleles=set( list(itertools.chain.from_iterable(alleles)) )
+
+    alt='.'
+    altbases= list( observed_alleles - set(refbase) )
+
+    if len(altbases) == 0:
+        alt='.'
+
+    elif len(altbases) > 1:
+        alt=",".join(altbases )
+    else:
+        alt=altbases[0]
+    return alt
+
+
+
 def numericalGenotypes( refbase,altstring, genostr):
     """ given refbase and comma-delimited string of alternate bases and n-character genotype string,
     return the numerical genotype where 1 is the reference and 2 and above be alternate.
@@ -14,7 +34,7 @@ def numericalGenotypes( refbase,altstring, genostr):
     altbases.sort()
 
     segregating_alleles=[refbase] + altbases
-    numerical_alleles=map(lambda x:x+1, range(len(segregating_alleles)))
+    numerical_alleles=range(len(segregating_alleles))
 
     genotype_map=dict(zip(segregating_alleles, numerical_alleles))
     genotyped_alleles=tuple(genostr)
