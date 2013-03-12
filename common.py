@@ -1,7 +1,7 @@
 import sys
 import string
 import math
-from itertools import *
+import itertools
 
 
 def determineAltBases( genotypes, refbase):
