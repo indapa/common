@@ -14,7 +14,7 @@ def yieldFastqRecord( fh ):
         line2 = fh.readline().strip()
         line3 = fh.readline().strip()
         line4 = fh.readline().strip()
-        if not line 4: break
+        if not line4: break
         
         yield "\n".join( [ line1,line2,line3,line4 ])
 
