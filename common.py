@@ -2,7 +2,23 @@ import sys
 import string
 import math
 import itertools
+import gzip
 
+
+def yieldFastqRecord( fastqfilename ):
+    """ a generator to yield a fastq record  """
+    if not fastqfilename.endswith('.gz'):
+        sys.stderr.write("please ensure fastqfile is gzip-ed!\n")
+        sys.exit(1)
+
+    fh=gzip.open(filename1, 'rb')
+    record=''
+    record+= fh.readline()
+    record+= fh.readline()
+    record+= fh.readline()
+    record+= fh.readline()
+
+    yield record
 
 def determineAltBases( genotypes, refbase):
     """ given a list of  genotypes and the ref base, determing the segregating alt base """
