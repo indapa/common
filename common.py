@@ -8,7 +8,6 @@ import gzip
 def yieldFastqRecord( fh ):
     """ a generator to yield a fastq record  """
 
-    fh=gzip.open(fastqfilename, 'rb')
     record=''
     record+= fh.readline()
     record+= fh.readline()
