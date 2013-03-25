@@ -11,7 +11,7 @@ def yieldFastqRecord( fastqfilename ):
         sys.stderr.write("please ensure fastqfile is gzip-ed!\n")
         sys.exit(1)
 
-    fh=gzip.open(filename1, 'rb')
+    fh=gzip.open(fastqfilename, 'rb')
     record=''
     record+= fh.readline()
     record+= fh.readline()
