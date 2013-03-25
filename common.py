@@ -16,7 +16,7 @@ def yieldFastqRecord( fastqfilename ):
     record+= fh.readline()
     record+= fh.readline()
     record+= fh.readline()
-    record+= fh.readline()
+    record+= fh.readline().strip()
 
     yield record
 
