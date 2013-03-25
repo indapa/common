@@ -5,11 +5,8 @@ import itertools
 import gzip
 
 
-def yieldFastqRecord( fastqfilename ):
+def yieldFastqRecord( fh ):
     """ a generator to yield a fastq record  """
-    if not fastqfilename.endswith('.gz'):
-        sys.stderr.write("please ensure fastqfile is gzip-ed!\n")
-        sys.exit(1)
 
     fh=gzip.open(fastqfilename, 'rb')
     record=''
