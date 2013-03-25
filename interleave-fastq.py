@@ -10,7 +10,7 @@ from common import *
 def main():
     usage = "usage: %prog [options]"
     parser = OptionParser(usage)
-    parser.add_option("--forward", type="string", dest="fwd", help="forward fastq gzipped file")
+    parser.add_option("--forward", type="string", dest="forward", help="forward fastq gzipped file")
     parser.add_option("--reverse", type="string", dest="reverse", help="reverse fastq gzipped file")
 
     (options, args)=parser.parse_args()
