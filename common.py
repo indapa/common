@@ -8,13 +8,15 @@ import gzip
 def yieldFastqRecord( fh ):
     """ a generator to yield a fastq record  """
 
-    record=''
-    record+= fh.readline()
-    record+= fh.readline()
-    record+= fh.readline()
-    record+= fh.readline().strip()
-
-    yield record
+    while True:
+        record=''
+        line1 = fh.readline().strip()
+        line2 = fh.readline().strip()
+        line3 = fh.readline().strip()
+        line4 = fh.readline().strip()
+        if not line 4: break
+        
+        yield "\n".join( [ line1,line2,line3,line4 ])
 
 def determineAltBases( genotypes, refbase):
     """ given a list of  genotypes and the ref base, determing the segregating alt base """
