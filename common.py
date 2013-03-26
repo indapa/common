@@ -168,6 +168,7 @@ def yield_bedcoordinate(fh):
     """ yield a tuple of (chr, start,end) from bed file """
     for line  in fh:
         if '@' in line: continue
+        if '#' in line: continue
         fields=line.strip().split("\t")
         (chr, start, end) = fields[0:3]
         yield(chr, int(start), int(end) )
