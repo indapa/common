@@ -183,3 +183,6 @@ def ErrorProb(phredscore):
     return pow(10,(-phredscore/10))
 
 	
+def melt_lol (l):
+    """ melt a list of lists into a single list: http://stackoverflow.com/a/952952 """
+    return [item for sublist in l for item in sublist]
