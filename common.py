@@ -5,6 +5,8 @@ import itertools
 import gzip
 import os
 
+
+
 def yieldFastaRecord (fh):
     """ adapted from this http://www.biostars.org/p/67246/#67556
         yields a tuple with (header_name,sequence)"""
