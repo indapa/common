@@ -5,8 +5,19 @@ import itertools
 import gzip
 import os
 
+def yieldFastaRecord (fh):
+    """ adapted from this http://www.biostars.org/p/67246/#67556
+        yields a tuple with (header_name,sequence)"""
+
+    faiter = (x[1] for x in itertools.groupby(fh, lambda line: line[0] == ">"))
+    for header in faiter:
+        header = header.next()[1:].strip()
+        yield header, "".join(s.strip() for s in faiter.next())
+
+
 def yieldFastqRecord( fh ):
-    """ a generator to yield a fastq record  """
+    """ a generator to yield a fastq record 
+         """
 
     while True:
         record=''
