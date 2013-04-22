@@ -3,7 +3,7 @@ import string
 import math
 import itertools
 import gzip
-
+import os
 
 def yieldFastqRecord( fh ):
     """ a generator to yield a fastq record  """
@@ -186,3 +186,9 @@ def ErrorProb(phredscore):
 def melt_lol (l):
     """ melt a list of lists into a single list: http://stackoverflow.com/a/952952 """
     return [item for sublist in l for item in sublist]
+
+def return_file_basename(file):
+    """ Return the base name of pathname path: see http://docs.python.org/2/library/os.path.html
+        and http://stackoverflow.com/a/678242"""
+
+    return os.path.splitext(file)[0]
