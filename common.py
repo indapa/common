@@ -191,4 +191,5 @@ def return_file_basename(file):
     """ Return the base name of pathname path: see http://docs.python.org/2/library/os.path.html
         and http://stackoverflow.com/a/678242"""
 
-    return os.path.splitext(file)[0]
+
+    return os.path.basename(os.path.splitext(file)[0])
