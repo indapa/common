@@ -3,6 +3,7 @@ import sys
 import gzip
 import random
 from optparse import OptionParser
+from common  import return_file_basename
 
 def main():
     """ randomly select N records from paired end fastq files
@@ -19,8 +20,9 @@ def main():
     
     fq1=args[0]
     fq2=args[1]
-
-    suba, subb = open(fq1 + ".subset", "w"), open(fq2 + ".subset", "w")
+    fq1_basename= return_file_basename(fq1)
+    fq2_basename= return_file_basename(fq2)
+    suba, subb = gzip.open(fq1_basename + ".subset.gz", "wb"), gzip.open(fq2_basename + ".subset.gz", "wb")
     
     
     
