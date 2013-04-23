@@ -21,11 +21,14 @@ def yieldFastqRecord (fh):
         readname=header.next().strip()
         #then the next sub-iters are sequence, '+', and qual
         #we concat them into a single string, then split them by '+'
-        (sequence,quals)="".join(s.strip() for s in fqiter.next()).split("+")
+        (sequence,quals)="".join(s.strip() for s in fqiter.next()).split("+",1)
         #finally we yield
         yield readname,sequence,quals
 
 def yieldFastqReadpair(fh1,fh2):
+    
+    """ This is just calling izip on yieldFastqRecord when given two filehandles  """
+    
     fqiter_gen1=yieldFastqRecord(fh1)
     fqiter_gen2=yieldFastqRecord(fh2)
     
