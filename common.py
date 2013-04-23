@@ -6,7 +6,25 @@ import gzip
 import os
 
 
+def yieldFastqRecord (fh):
+    """ a generator that yields a tuple of (fastq_readname, sequence, qualstring)
+    adapted from this http://www.biostars.org/p/67246/#67556 
+    yields a tuple with (header_name,sequence)
+    See http://freshfoo.com/blog/itertools_groupby """
 
+    fqiter=(x[1] for x in itertools.groupby(fh, lambda line: line[0] == '@'))
+    #fqiter is made of sub-iterators
+
+    #the first sub-iter is the header
+    for header in fqiter:
+        readname=header.next().strip()
+        #then the next sub-iters are sequence, '+', and qual
+        #we concat them into a single string, then split them by '+'
+        (sequence,quals)="".join(s.strip() for s in fqiter.next()).split("+")
+        #finally we yield
+        yield readname,sequence,quals
+
+        
 def yieldFastaRecord (fh):
     """ adapted from this http://www.biostars.org/p/67246/#67556
         yields a tuple with (header_name,sequence)"""
@@ -16,20 +34,6 @@ def yieldFastaRecord (fh):
         header = header.next()[1:].strip()
         yield header, "".join(s.strip() for s in faiter.next())
 
-
-def yieldFastqRecord( fh ):
-    """ a generator to yield a fastq record 
-         """
-
-    while True:
-        record=''
-        line1 = fh.readline().strip()
-        line2 = fh.readline().strip()
-        line3 = fh.readline().strip()
-        line4 = fh.readline().strip()
-        if not line4: break
-        
-        yield "\n".join( [ line1,line2,line3,line4 ])
 
 def determineAltBases( genotypes, refbase):
     """ given a list of  genotypes and the ref base, determing the segregating alt base """
