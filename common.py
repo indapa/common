@@ -6,6 +6,7 @@ import gzip
 import os
 
 
+
 def yieldFastqRecord (fh):
     """ a generator that yields a tuple of (fastq_readname, sequence, qualstring)
     adapted from this http://www.biostars.org/p/67246/#67556 
@@ -24,6 +25,16 @@ def yieldFastqRecord (fh):
         #finally we yield
         yield readname,sequence,quals
 
+def yieldFastqReadpair(fh1,fh2):
+    fqiter_gen1=yieldFastqRecord(fh1)
+    fqiter_gen2=yieldFastqRecord(fh2)
+    
+    for fqrec1, fqrec2 in itertools.izip(fqiter_gen1, fqiter_gen2):
+        yield fqrec1, fqrec2
+        
+         
+     
+ 
         
 def yieldFastaRecord (fh):
     """ adapted from this http://www.biostars.org/p/67246/#67556
