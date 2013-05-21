@@ -42,7 +42,7 @@ def main():
         while rec_no < rr:
             rec_no+=1
             for i in range(2): samfh.readline()
-        for i in range(2):
+        for j in range(2):
             subfh.write(samfh.readline())
         rec_no+=1
         records_written+=1
