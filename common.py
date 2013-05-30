@@ -206,7 +206,7 @@ def yield_bedcoordinate(fh):
 
 def PhredScore(errorprob):
     """ given an error probbability, return the phred-scaled value: -10 * log_10(error) """
-    if errorprob == 1:
+    if errorprob == 0:
         return 100
     
     return   -10 * math.log10(errorprob)
