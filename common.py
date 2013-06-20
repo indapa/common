@@ -227,3 +227,15 @@ def return_file_basename(file):
 
 
     return os.path.basename(os.path.splitext(file)[0])
+
+
+""" given a bedstring and bx.seq.twobit object, extract the sequence from the intervals parsed from the bedstring """
+def twoBitExtract(bedstring, twobit):
+    (chr, start, end, name)=bedstring.split('\t')
+    
+    start=int(start)
+    end=int(end)
+ 
+    assert( end > start ),"end less  than start!"
+    sequence=twobit[chr][start:end]
+    return sequence.upper()
