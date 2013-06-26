@@ -120,17 +120,29 @@ def genotypeToIndex( geno, ploidy=2,alleles='ACGT'):
         print "genotype not in list of genotypes."
 
 
+def writefasta_stdout(sequence, name):
+    
+    l = len( sequence )
+    c = 0
+    sys.stdout.write( ">%s\n" % name )
+    while c < l:
+        b = min( c + 50, l )
+        sys.stdout.write( "%s\n" % str( sequence[c:b] ) )
+        c = b
+
+
 def writefasta(sequence, name, filename):
-	fh=open(filename, 'w')
-        l = len( sequence )
-        c = 0
-        fh.write( ">%s\n" % name )
-        while c < l:
-            b = min( c + 50, l )
-            fh.write( "%s\n" % str( sequence[c:b] ) )
-            c = b
+    fh=open(filename, 'w')
+    l = len( sequence )
+    c = 0
+    fh.write( ">%s\n" % name )
+    while c < l:
+        b = min( c + 50, l )
+        fh.write( "%s\n" % str( sequence[c:b] ) )
+        c = b
+
 def order(j,k): 
-	return (k * (k + 1) / 2) + j
+    return (k * (k + 1) / 2) + j
 
 
 """ iterate through an utterable n values at a time
