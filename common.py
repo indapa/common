@@ -4,7 +4,8 @@ import math
 import itertools
 import gzip
 import os
-
+import collections
+ 
 
 
 def yieldFastqRecord (fh):
@@ -251,3 +252,26 @@ def twoBitExtract(bedstring, twobit):
     assert( end > start ),"end less  than start!"
     sequence=twobit[chr][start:end]
     return sequence.upper()
+
+def containsDuplicates(L):
+    """ returns True of list L contains duplicates """
+    if [ x for x,y in collections.Counter(L).items() if y > 1]:
+        return True
+    return False
+
+#def duplicateIndices(L):
+#    """ return indices of duplicate records in a list L """
+    
+
+def list_duplicates(seq):
+    """ return a list of tuples: [ (duplicate_val, [indice]), .... ]  """
+    tally = collections.defaultdict(list)
+    for i,item in enumerate(seq):
+        tally[item].append(i)
+    return ((key,locs) for key,locs in tally.items() 
+                            if len(locs)>1)
+
+def isMaxDuplicated(L):
+    """ return True False if the max value of a list is duplicated """
+    return max(L) in  [x for x,y in collections.Counter(L).items() if y > 1]
+    
