@@ -274,4 +274,22 @@ def list_duplicates(seq):
 def isMaxDuplicated(L):
     """ return True False if the max value of a list is duplicated """
     return max(L) in  [x for x,y in collections.Counter(L).items() if y > 1]
+
+def decode_duplicate(ALPHABET, totalsize, L):
+    DECODED=[]
+    for i in  L[0:totalsize]:
+        if type(i) is int: DECODED.append( ALPHABET[ i ] )
+        else:
+            DECODED.append( ";".join([ ALPHABET[x] for x in i]) )
+    return DECODED
+            
+               
+def zerodiv_tuple(t):
+    """ given a tuple (x,y), divide, but if its 0/0 return 0 """
+    
+    if t[0] == 0 and t[1] == 0:
+        return 0
+    return t[0]/t[1]
+      
+        
     
