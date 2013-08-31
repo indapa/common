@@ -6,7 +6,35 @@ import gzip
 import os
 import collections
  
+def yieldBedIntervals(bedfh,size,overlap=0):
+    """ given a filehandle with chromosome sizes and size window and overlap
+        yield bed record of that size and overlap """
+    regions=[]
+    region_size=size
+    for line in bedfh:
+        if '_' in line: continue
+        if "#" in line: continue
+        fields = line.strip().split("\t")
 
+        chrom_name = fields[0]
+        
+        chrom_length = int(fields[1])
+        region_start = 0
+        
+        while region_start < chrom_length-overlap:
+            start = region_start
+            end = region_start + region_size
+            if end > chrom_length:
+                end = chrom_length
+            region_string = chrom_name + "\t" + str(region_start) + "\t" + str(end)
+            yield region_string
+            #outfile=".".join([chrom_name+':'+str(region_start)+".."+str(end), 'bed'])
+            #outfh=open(outfile, 'w')
+            #regions.append(region_string)
+            #outfh.write(region_string+"\n")
+            region_start = end - overlap
+
+    
 
 def yieldFastqRecord (fh):
     """ a generator that yields a tuple of (fastq_readname, sequence, qualstring)
