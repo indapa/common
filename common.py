@@ -6,6 +6,18 @@ import gzip
 import os
 import collections
  
+
+def difference (a, b):
+    """ return the set difference between A and B 
+    """
+    return set(a) - set(b)
+
+def intersect(a, b):
+    """ return the intersection between list a and b  
+    """
+    return set(a).intersection(set(b))
+
+
 def yieldBedIntervals(bedfh,size,overlap=0):
     """ given a filehandle with chromosome sizes and size window and overlap
         yield bed record of that size and overlap """
