@@ -1,0 +1,20 @@
+# extract the sample names in a tabix-ed VCF.gz file
+# with each sample on a single line
+
+if [ $# != 1 ]
+  then
+    echo "tabix-extractsamples file.vcf.gz"
+    exit
+fi
+
+VCF=$1
+
+if [ ! -f $VCF  ]
+then
+echo "$VCF doesn't exist!"
+exit
+fi
+
+tabix -H $VCF | grep \#CHROM  | cut -f 10- | perl -n -e 's/\s+/\n/g; print;'
+
+
