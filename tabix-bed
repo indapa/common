@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!//bin/bash
 
 ## the -B option that supposed to read bed file in tabix doesnt work for me
 ## we re-create here with a awk-ing the region string out of the bed and using xargs to run tabix
@@ -26,4 +26,4 @@ echo "$BED doesn't exist!"
 exit
 fi
 
-awk '{print $1 ":"$2"-"$3}' $BED| xargs -I  file echo tabix $VCF file | bash
+awk '{print $1 ":"$2"-"$3}' $BED| xargs -I  file echo tabix -h  $VCF file | bash
