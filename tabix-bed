@@ -26,4 +26,4 @@ echo "$BED doesn't exist!"
 exit
 fi
 
-awk '{print $1 ":"$2"-"$3}' $BED| xargs -I  file echo tabix -h  $VCF file | bash
+awk '{print $1 ":"$2"-"$3}' $BED| xargs -I  file echo tabix   $VCF file | bash
