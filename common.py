@@ -1,3 +1,9 @@
+"""
+
+a collection of useful python functions. 
+
+""" 
+
 import sys
 import string
 import math
@@ -5,7 +11,7 @@ import itertools
 import gzip
 import os
 import collections
- 
+
 
 def difference (a, b):
     """ return the set difference between A and B 
@@ -148,8 +154,10 @@ def indexToGenotype( index,alleles='ACGT',ploidy=2 ):
 
 
 def genotypeToIndex( geno, ploidy=2,alleles='ACGT'):
-    """ given a genotype return its index in the enumerated list of possible genotypes
-    given ploidy and alleles """
+    """
+    given a genotype return its index in the enumerated list of possible
+    genotypesgiven ploidy and alleles 
+    """
 
 
     genotypes= [ "".join(list(genotype))  for genotype in combinations_with_replacement(alleles, ploidy) ]
@@ -162,7 +170,7 @@ def genotypeToIndex( geno, ploidy=2,alleles='ACGT'):
 
 
 def writefasta_stdout(sequence, name):
-    
+    """ write fasta formated output of a sequence"""
     l = len( sequence )
     c = 0
     sys.stdout.write( ">%s\n" % name )
@@ -173,6 +181,7 @@ def writefasta_stdout(sequence, name):
 
 
 def writefasta(sequence, name, filename):
+    """ write fasta formated output of a sequence to file"""
     fh=open(filename, 'w')
     l = len( sequence )
     c = 0
@@ -186,31 +195,43 @@ def order(j,k):
     return (k * (k + 1) / 2) + j
 
 
-""" iterate through an utterable n values at a time
-     http://stackoverflow.com/a/2990151         """
+
 def grouper(n, iterable, fillvalue='x'):
-    "grouper(3, 'ABCDEFG', 'x') --> ABC DEF Gxx"
+    """ 
+    iterate through an utterable n values at a time
+    http://stackoverflow.com/a/2990151       
+    grouper(3, 'ABCDEFG', 'x') --> ABC DEF Gxx
+    """
+
     args = [iter(iterable)] * n
     return itertools.izip_longest(fillvalue=fillvalue, *args)
 
-""" for reverse complementing a sequence """
+
 def complement(s):
-     """Return the complementary sequence string."""
-     basecomplement = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A'}
-     letters = list(s)
-     letters = [basecomplement[base] for base in letters]
-     return ''.join(letters)
+    """ 
+    for reverse complementing a sequence
+    Return the complementary sequence string.
+    """
+
+    basecomplement = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A'}
+    letters = list(s)
+    letters = [basecomplement[base] for base in letters]
+    return ''.join(letters)
 
 def reversecomplement(s):
-     """Return the reverse complement of the dna string."""
+     """
+     Return the reverse complement of the dna string.
+     """
      s = s[::-1]
      s = complement(s)
      return s
 
 
 def typeofGenotype(allele1, allele2):
-    """ I really should be a python version of a typedef here, but dont know how
-        hom_ref =0 het =1 hom_nonref=2 no_call=3                              """
+    """ 
+    I really should be a python version of a typedef here, but dont know how
+    hom_ref =0 het =1 hom_nonref=2 no_call=3                             
+    """
 
     #print allele1, allele2
 
@@ -229,7 +250,9 @@ def typeofGenotype(allele1, allele2):
     if allele1 != '0' and allele2 != '0': return 2
 
 def isTransition(allele1, allele2):
-    
+    """
+    return if allele change is transition (allelle1 -> allele2)
+    """
     if allele1 == 'A':
         if allele2 == 'G':
             return True
@@ -282,8 +305,9 @@ def return_file_basename(file):
     return os.path.basename(os.path.splitext(file)[0])
 
 
-""" given a bedstring and bx.seq.twobit object, extract the sequence from the intervals parsed from the bedstring """
+
 def twoBitExtract(bedstring, twobit):
+    """ given a bedstring and bx.seq.twobit object, extract the sequence from the intervals parsed from the bedstring """
     (chr, start, end, name)=bedstring.split('\t')
     
     start=int(start)
