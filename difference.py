@@ -2,19 +2,20 @@
 import sys
 import os
 import argparse
-from common import difference
+
 
 def main():
     usage = "usage: %prog [options]  "
     parser = argparse.ArgumentParser(description='find difference  between lines in a file')
-    parser.add_argument('fileA',  type=str,help='file A')
-    parser.add_argument('fileB',  type=str,help='file B')
+    parser.add_argument('-A',  type=str,help='file A')
+    parser.add_argument('-B',  type=str,help='file B')
+    parser.add_argument('-cardinality', dest='card', action='store_true')
 
     args = parser.parse_args()
 
 
-    fhA=open(args.fileA,'r')
-    fhB=open(args.fileB,'r')
+    fhA=open(args.A,'r')
+    fhB=open(args.B,'r')
 
     A=[]
     B=[]
@@ -25,9 +26,17 @@ def main():
         B.append( line.strip() )
 
 
+    setA= set(A)
+    setB = set(B)
 
-    for x in difference(A, B):
-        print x
+    setdifference = setA.difference(setB)
+
+    if args.card == False:
+        for elem in list(setdifference):
+            print elem
+
+    else:
+        print len(setdifference)    
 
 
 
