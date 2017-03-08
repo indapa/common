@@ -13,6 +13,24 @@ import os
 import collections
 
 
+
+
+def fasta_iter(fasta_name):
+    """
+    given a fasta file. yield tuples of header, sequence: https://www.biostars.org/p/710/#1412
+    """
+    fh = open(fasta_name)
+    # ditch the boolean (x[0]) and just keep the header or sequence since
+    # we know they alternate.
+    faiter = (x[1] for x in itertools.groupby(fh, lambda line: line[0] == ">"))
+    for header in faiter:
+        # drop the ">"
+        header = header.next()[1:].strip()
+        # join all sequence lines to one.
+        seq = "".join(s.strip() for s in faiter.next())
+        yield header, seq
+
+
 def difference (a, b):
     """ return the set difference between A and B 
     """
